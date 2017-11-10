@@ -1,0 +1,23 @@
+# ansible playbook to deploy docker on ubuntu xenial 16.04
+---
+-
+  name: patch tc agent boxes
+  become: true
+  hosts:
+    - dockerhost
+  vars:
+    ansible_python_interpreter: "/usr/bin/python3"
+  gather_facts: False
+
+  tasks:
+    - name: delete dir if exists
+      shell: "rm -rf streambonus_test"
+
+    - name: clone from github
+      shell: "git clone https://github.com/Draven072/streambonus_test.git"
+
+    - name: change work directory
+      shell: "cd ~/streambonus_test"
+
+    - name: start dockers
+      shell: "/bin/bash ./start.sh"

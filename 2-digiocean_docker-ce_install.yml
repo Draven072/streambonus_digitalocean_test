@@ -1,0 +1,26 @@
+# ansible playbook to deploy docker on ubuntu xenial 16.04
+---
+-
+  name: patch tc agent boxes
+  become: true
+  hosts:
+    - dockerhost
+  vars:
+    ansible_python_interpreter: "/usr/bin/python3"
+  gather_facts: False
+
+  tasks:
+    - name: add docker apt key
+      shell: "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -"
+
+    - name: add docker apt repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
+        update_cache: yes
+
+    - name: install docker
+      apt:
+        name: docker-ce
+        state: latest
+        update_cache: yes
+
