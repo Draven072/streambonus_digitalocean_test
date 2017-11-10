@@ -11,13 +11,12 @@
 
   tasks:
     - name: delete dir if exists
-      shell: "rm -rf streambonus_test"
+      command: "rm -rf streambonus_test"
 
     - name: clone from github
       shell: "git clone https://github.com/Draven072/streambonus_test.git"
 
-    - name: change work directory
-      shell: "cd ~/streambonus_test"
-
     - name: start dockers
-      shell: "/bin/bash ./start.sh"
+      command: /bin/bash ./start.sh
+      args:
+        chdir: ~/streambonus_test/

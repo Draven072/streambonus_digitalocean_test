@@ -1,5 +1,3 @@
 [digitalocean]
 localhost ansible_connection=local ansible_python_interpreter=python
-
 [dockerhost]
-46.101.231.50
