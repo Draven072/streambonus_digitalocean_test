@@ -1,9 +1,13 @@
 # streambonus_digitalocean_test
 
 **install.sh** - скрипт *oneclick-install* развёртывания дроплета на DigitalOcean, установки docker-engine, диплоя докер-контейнеров, создания юзера с правами sudo, импорт публичного ключа и очищения файлов hosts и newhost в конце установки.
+
 `1-digiocean_host_create.yml` - плейбук ansible для создания дроплета на DigitalOcean.
+
 `2-digiocean_docker-ce_install.yml` - плейбук установки docker-engine в дроплет.
+
 `3-digiocean_dockers.yml` - загрузка с GitHub и развертывание докеров nginx-proxy, app, postgresql, redis и rabbitmq. Создание внутренней сети swarm.
+
 `4-digiocean_add_sudouser.yml` - создание пользователя sbonus с правами sudo (пароль в плейбуке), аплоад публичного ключа в профиль юзера.
 
 Проверка наличия импортированной базы PostgreSQL:
