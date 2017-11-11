@@ -1,7 +1,7 @@
 # ansible playbook to deploy docker on ubuntu xenial 16.04
 ---
 -
-  name: patch tc agent boxes
+  name: install docker-engine into digitalocean docklet
   become: true
   hosts:
     - dockerhost

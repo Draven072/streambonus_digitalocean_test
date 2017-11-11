@@ -1,7 +1,6 @@
-# ansible playbook to deploy docker on ubuntu xenial 16.04
 ---
 -
-  name: patch tc agent boxes
+  name: deploy of docker conteiners from github
   become: true
   hosts:
     - dockerhost

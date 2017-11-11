@@ -12,7 +12,12 @@ sleep 10
 
 ansible-playbook 4-digiocean_add_sudouser.yml
 
-ADDR=$(cat newhost)
-sed -i -e 's/$ADDR//' hosts
-sed -i '/./,/^$/!d' hosts
+#ADDR=$(cat newhost)
+#sed -i -e 's/$ADDR//' hosts
+#sed -i '/./,/^$/!d' hosts
 echo -n > newhost
+echo '[digitalocean]
+localhost ansible_connection=local ansible_python_interpreter=python
+[dockerhost]' > hosts
+
+echo "Deployment is finished"

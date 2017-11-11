@@ -1,29 +1,45 @@
-# ansible playbook to add new sudo user ubuntu xenial 16.04
 ---
 -
-  name: patch tc agent boxes
+  name: add sudo user to digitalocean droplet
   become: true
   hosts:
     - dockerhost
   vars:
     ansible_python_interpreter: "/usr/bin/python3"
+    # password for sbonus user is 'sbonuspass'
+    # generated with: mkpasswd --method=sha-512
+    password: $6$KiOwWwLrMagwQsRt$6IY.fKq1vk6AT7Zl18wazuc85TmG7ITT6tNVlLq45mvdgSk/bcbWbttzmUSQh.CX/6kSbWjUEQCpeBSayj/ld.
   gather_facts: False
 
   tasks:
     - name: add new user
       user: name=sbonus
             state=present
-            group=root
+            group=users
             groups="sudo"
-#            password={{ password }}
+            password={{ password }}
 
     - name: Creates directory .ssh
-      file: path=/home/sbonus/.ssh state=directory
+      file: path=/home/sbonus/.ssh
+            state=directory
+            owner=sbonus
+            group=users
+            mode=0700
 
     - name: upload public key
       copy:
         src: id_rsa.pub
         dest: /home/sbonus/.ssh/id_rsa.pub
         owner: sbonus
-        group: root
+        group: users
         mode: 0644
+
+    - name: create file authorized_keys
+      file: path=/home/sbonus/.ssh/authorized_keys 
+            state=touch
+            owner=sbonus
+            group=users
+            mode=0644
+
+    - name: add public key to autorized keys
+      shell: "cat /home/sbonus/.ssh/id_rsa.pub >> /home/sbonus/.ssh/authorized_keys"
