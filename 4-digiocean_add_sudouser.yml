@@ -1,0 +1,29 @@
+# ansible playbook to add new sudo user ubuntu xenial 16.04
+---
+-
+  name: patch tc agent boxes
+  become: true
+  hosts:
+    - dockerhost
+  vars:
+    ansible_python_interpreter: "/usr/bin/python3"
+  gather_facts: False
+
+  tasks:
+    - name: add new user
+      user: name=sbonus
+            state=present
+            group=root
+            groups="sudo"
+#            password={{ password }}
+
+    - name: Creates directory .ssh
+      file: path=/home/sbonus/.ssh state=directory
+
+    - name: upload public key
+      copy:
+        src: id_rsa.pub
+        dest: /home/sbonus/.ssh/id_rsa.pub
+        owner: sbonus
+        group: root
+        mode: 0644

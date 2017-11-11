@@ -7,7 +7,10 @@ sleep 20
 ansible-playbook 2-digiocean_docker-ce_install.yml
 sleep 10
 
-ansible-playbook 3-digiocean-dockers.yml
+ansible-playbook 3-digiocean_dockers.yml
+sleep 10
+
+ansible-playbook 4-digiocean_add_sudouser.yml
 
 ADDR=$(cat newhost)
 sed -i -e 's/$ADDR//' hosts
